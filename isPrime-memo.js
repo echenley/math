@@ -19,10 +19,10 @@ var isPrime = (function(primes) {
     
     return function(n) {
         if (typeof n === 'number') {
-            while (primes[primes.length-1] < n) {
+            while (primes[primes.length-1] < Math.sqrt(n)) {
                 primes.push(getNextPrime());
             }
-            return primes.indexOf(n) !== -1;
+            return isValidPrime(n);
         }
         return false;
     };
