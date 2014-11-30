@@ -1,7 +1,8 @@
 var isPrime = (function(primes) {
+    var candidate, possibleDivisors;
     var isValidPrime = function(c) {
         // possible divisors are any prime whose square is >= candidate
-        var possibleDivisors = primes.filter(function(p) {
+        possibleDivisors = primes.filter(function(p) {
             return c >= p * p;
         });
         return !possibleDivisors.some(function(d) {
@@ -9,10 +10,14 @@ var isPrime = (function(primes) {
         });
     };
     
+    var nextCandidate = function(candidate) {
+        return candidate += candidate % 10 === 3 ? 4 : 2;
+    };
+    
     var getNextPrime = function() {
-        var candidate = primes[primes.length-1] + 2;
+        candidate = primes[primes.length-1] + 2;
         while (!isValidPrime(candidate)) {
-            candidate += 2;
+            candidate = nextCandidate(candidate);
         }
         return candidate;
     };
@@ -27,3 +32,5 @@ var isPrime = (function(primes) {
         return false;
     };
 }([2,3]));
+
+console.log(isPrime(123456783));
